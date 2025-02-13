@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { UserRepository } from "../repositories/user.repository";
 import { UserService } from "../services/user.service";
 import { IUserRepository, IUserService, User } from "../types/user.types";
+import { generateToken } from "lib/generateToken";
 
 const userRepository: IUserRepository = new UserRepository();
 const userService: IUserService = new UserService(userRepository);
@@ -19,6 +20,7 @@ export const signup = async (req: Request, res: Response) => {
   const user = await userService.createUser({ fullName, email, password });
 
   if (user && user._id) {
+    generateToken(res, user._id.toString());
     res.status(201).json({
       _id: user._id,
       name: user.fullName,
