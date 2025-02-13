@@ -1,3 +1,4 @@
+import { Query } from "types/repository.types";
 import { IUserRepository, IUserService, User } from "../types/user.types";
 
 export class UserService implements IUserService {
@@ -5,5 +6,9 @@ export class UserService implements IUserService {
 
   async createUser(data: User): Promise<User> {
     return this.userRepository.create(data);
+  }
+
+  async findOne(query: Query): Promise<User | null> {
+    return this.userRepository.findOne(query);
   }
 }

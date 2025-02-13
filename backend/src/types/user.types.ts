@@ -1,5 +1,5 @@
 import { Document } from "mongoose";
-import { Repository } from "./repository.types";
+import { Query, Repository } from "./repository.types";
 
 export interface User extends Document {
   //   _id: mongoose.Types.ObjectId;
@@ -9,8 +9,11 @@ export interface User extends Document {
   profilePic: string;
 }
 
-export interface IUserRepository extends Repository<User> {}
+export interface IUserRepository extends Repository<User> {
+  findOne(query: Query): Promise<User | null>;
+}
 
 export interface IUserService {
-  createUser(data: User): Promise<User>;
+  createUser(data: Partial<User>): Promise<User>;
+  findOne(query: Query): Promise<User | null>;
 }
