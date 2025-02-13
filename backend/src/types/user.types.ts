@@ -10,3 +10,7 @@ export interface User extends Document {
 }
 
 export interface IUserRepository extends Repository<User> {}
+
+export interface IUserService {
+  createUser(data: User): Promise<User>;
+}
