@@ -1,4 +1,5 @@
-import mongoose, { Document } from "mongoose";
+import { Document } from "mongoose";
+import { Repository } from "./repository.types";
 
 export interface User extends Document {
   //   _id: mongoose.Types.ObjectId;
@@ -7,3 +8,5 @@ export interface User extends Document {
   password: string;
   profilePic: string;
 }
+
+export interface IUserRepository extends Repository<User> {}

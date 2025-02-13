@@ -6,6 +6,8 @@ import "./lib/db";
 const app: Application = express();
 const port = EnvConfiguration().port;
 
+app.use(express.json());
+
 app.use("/api/auth", authRouter);
 
 app.listen(port, () => {
