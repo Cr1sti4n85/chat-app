@@ -1,4 +1,5 @@
 import express, { Application } from "express";
+import cookieParser from "cookie-parser";
 import authRouter from "./routes/auth.route";
 import { EnvConfiguration } from "config/envConfiguration";
 import "./lib/db";
@@ -8,6 +9,7 @@ const app: Application = express();
 const port = EnvConfiguration().port;
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/api/auth", authRouter);
 
