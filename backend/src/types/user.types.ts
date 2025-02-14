@@ -7,6 +7,7 @@ export interface User extends Document {
   email: string;
   password: string;
   profilePic: string;
+  matchPassword: (password: string) => Promise<boolean>;
 }
 
 export interface IUserRepository extends Repository<User> {

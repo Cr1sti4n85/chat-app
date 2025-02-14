@@ -33,10 +33,28 @@ export const signup = asyncHandler(async (req: Request, res: Response) => {
     throw new Error("Invalid user data");
   }
 });
-export const login = (_req: Request, res: Response) => {
-  res.send("Signup route");
-};
+export const login = asyncHandler(async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+  const userExists = await userService.findOne({ email });
+
+  if (!userExists || !(await userExists.matchPassword(password))) {
+    res.status(400);
+    throw new Error("Invalid credentials. Try again");
+  }
+
+  if (userExists._id) generateToken(res, userExists._id.toString());
+
+  res.status(200).json({
+    _id: userExists._id,
+    name: userExists.fullName,
+    email: userExists.email,
+    profilePic: userExists.profilePic,
+  });
+});
 
 export const logout = (_req: Request, res: Response) => {
-  res.send("Signup route");
+  res.cookie("jwt", "", {
+    maxAge: 0,
+  });
+  res.status(200).json({ message: "Logged out succesfully" });
 };
