@@ -10,4 +10,8 @@ export class UserRepository implements IUserRepository {
   async findOne(query: Query): Promise<User | null> {
     return await UserModel.findOne(query);
   }
+
+  async update(id: string, data: Partial<User>): Promise<User | null> {
+    return await UserModel.findByIdAndUpdate(id, data);
+  }
 }
