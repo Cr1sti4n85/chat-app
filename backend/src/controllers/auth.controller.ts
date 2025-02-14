@@ -3,7 +3,7 @@ import { UserRepository } from "../repositories/user.repository";
 import { UserService } from "../services/user.service";
 import { IUserRepository, IUserService, User } from "../types/user.types";
 import { generateToken } from "lib/generateToken";
-import asyncHandler from "middleware/asyncHandler.middleware";
+import asyncHandler from "../lib/asyncHandler.middleware";
 
 const userRepository: IUserRepository = new UserRepository();
 const userService: IUserService = new UserService(userRepository);
@@ -58,3 +58,7 @@ export const logout = (_req: Request, res: Response) => {
   });
   res.status(200).json({ message: "Logged out succesfully" });
 };
+
+export const updateProfile = asyncHandler(
+  async (req: Request, res: Response) => {}
+);
