@@ -20,7 +20,7 @@ export const protect = asyncHandler(
     if (token) {
       try {
         const decoded = jwt.verify(token, jwtSecret) as User;
-
+        console.log(decoded);
         const getUser = await userService.findUserById(decoded.id);
 
         if (!getUser) {

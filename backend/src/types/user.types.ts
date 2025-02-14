@@ -18,4 +18,5 @@ export interface IUserService {
   createUser(data: Partial<User>): Promise<User>;
   findOne(query: Query): Promise<User | null>;
   updateUser(id: string, data: Partial<User>): Promise<User | null>;
+  findUserById(id: string): Promise<User | null>;
 }
