@@ -3,11 +3,12 @@ import { UserRepository } from "../repositories/user.repository";
 import { UserService } from "../services/user.service";
 import { IUserRepository, IUserService, User } from "../types/user.types";
 import { generateToken } from "lib/generateToken";
+import asyncHandler from "middleware/asyncHandler.middleware";
 
 const userRepository: IUserRepository = new UserRepository();
 const userService: IUserService = new UserService(userRepository);
 
-export const signup = async (req: Request, res: Response) => {
+export const signup = asyncHandler(async (req: Request, res: Response) => {
   const { fullName, email, password } = req.body;
 
   const userExists = await userService.findOne({ email });
@@ -25,12 +26,13 @@ export const signup = async (req: Request, res: Response) => {
       _id: user._id,
       name: user.fullName,
       email: user.email,
+      profilePic: user.profilePic,
     });
   } else {
     res.status(400);
     throw new Error("Invalid user data");
   }
-};
+});
 export const login = (_req: Request, res: Response) => {
   res.send("Signup route");
 };
