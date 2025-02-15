@@ -1,4 +1,5 @@
 import {
+  checkAuthenticated,
   login,
   logout,
   signup,
@@ -14,6 +15,8 @@ router.post("/signup", signup);
 router.post("/login", login);
 
 router.get("/logout", logout);
+
+router.get("/check", protect, checkAuthenticated);
 
 router.put("/update-profile", protect, updateProfile);
 

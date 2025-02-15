@@ -4,6 +4,8 @@ import { UserService } from "../services/user.service";
 import { IUserRepository, IUserService, User } from "../types/user.types";
 import { generateToken } from "lib/generateToken";
 import asyncHandler from "../lib/asyncHandler";
+import cloudinary from "../lib/cloudinary";
+import { UploadApiResponse } from "cloudinary";
 
 const userRepository: IUserRepository = new UserRepository();
 const userService: IUserService = new UserService(userRepository);
@@ -60,5 +62,29 @@ export const logout = (_req: Request, res: Response) => {
 };
 
 export const updateProfile = asyncHandler(
-  async (req: Request, res: Response) => {}
+  async (req: Request, res: Response) => {
+    const { profilePic } = req.body;
+    console.log(req);
+    const userId = req.currentUser._id as string;
+
+    if (!profilePic) {
+      res.status(400);
+      throw new Error("Profile pic is required");
+    }
+
+    const uploadResponse: UploadApiResponse = await cloudinary.uploader.upload(
+      profilePic
+    );
+    const updatedUser = await userService.updateUser(userId, {
+      profilePic: uploadResponse.secure_url,
+    });
+
+    res.status(200).json(updatedUser);
+  }
+);
+
+export const checkAuthenticated = asyncHandler(
+  (req: Request, res: Response) => {
+    res.status(200).json(req.currentUser);
+  }
 );

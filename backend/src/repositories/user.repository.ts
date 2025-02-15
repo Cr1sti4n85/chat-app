@@ -12,10 +12,10 @@ export class UserRepository implements IUserRepository {
   }
 
   async update(id: string, data: Partial<User>): Promise<User | null> {
-    return await UserModel.findByIdAndUpdate(id, data);
+    return await UserModel.findByIdAndUpdate(id, data, { new: true });
   }
 
   async findById(id: string): Promise<User | null> {
-    return await UserModel.findById(id);
+    return await UserModel.findById(id).select("-password");
   }
 }
