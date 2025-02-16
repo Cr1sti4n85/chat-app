@@ -9,7 +9,9 @@ export interface Message extends Document {
   image: string;
 }
 
-export interface IMessageRepository extends Repository<Message> {}
+export interface IMessageRepository extends Repository<Message> {
+  findByUser(senderId: string, receiverId: string): Promise<Message[]>;
+}
 
 export interface IMessageService {
   createMessage(data: Partial<Message>): Promise<Message>;
