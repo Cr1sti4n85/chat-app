@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { UserRepository } from "../repositories/user.repository";
 import { UserService } from "../services/user.service";
-import { IUserRepository, IUserService, User } from "../types/user.types";
+import { IUserRepository, IUserService } from "../types/user.types";
 import { generateToken } from "lib/generateToken";
 import asyncHandler from "../lib/asyncHandler";
-import cloudinary from "../lib/cloudinary";
 import { UploadApiResponse } from "cloudinary";
+import { uploadImage } from "lib/uploadImage";
 
 const userRepository: IUserRepository = new UserRepository();
 const userService: IUserService = new UserService(userRepository);
@@ -72,9 +72,10 @@ export const updateProfile = asyncHandler(
       throw new Error("Profile pic is required");
     }
 
-    const uploadResponse: UploadApiResponse = await cloudinary.uploader.upload(
-      profilePic
-    );
+    const uploadResponse: UploadApiResponse = await uploadImage(profilePic);
+    // const uploadResponse: UploadApiResponse = await cloudinary.uploader.upload(
+    //   profilePic
+    // );
     const updatedUser = await userService.updateUser(userId, {
       profilePic: uploadResponse.secure_url,
     });
