@@ -11,7 +11,7 @@ export class MessageService implements IMessageService {
     return this.messageRepo.findByUser(senderId, receiverId);
   }
   createMessage(data: Partial<Message>): Promise<Message> {
-    throw new Error("Method not implemented.");
+    return this.messageRepo.create(data);
   }
   findOne(query: Query): Promise<Message | null> {
     throw new Error("Method not implemented.");

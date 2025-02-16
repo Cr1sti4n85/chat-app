@@ -3,8 +3,9 @@ import MessageModel from "../models/message.model";
 import { IMessageRepository, Message } from "../types/message.types";
 
 export class MessageRepository implements IMessageRepository {
-  create(data: Message): Promise<Message> {
-    throw new Error("Method not implemented.");
+  async create(data: Partial<Message>): Promise<Message> {
+    const newMessage = new MessageModel(data);
+    return await newMessage.save();
   }
   update(id: string, data: Partial<Message>): Promise<Message | null> {
     throw new Error("Method not implemented.");
