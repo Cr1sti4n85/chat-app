@@ -14,6 +14,7 @@ export interface IMessageRepository extends Repository<Message> {
 }
 
 export interface IMessageService {
+  findUserMessages(senderId: string, receiverId: string): Promise<Message[]>;
   createMessage(data: Partial<Message>): Promise<Message>;
   findOne(query: Query): Promise<Message | null>;
   updateMessage(id: string, data: Partial<Message>): Promise<Message | null>;
