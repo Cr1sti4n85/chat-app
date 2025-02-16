@@ -2,6 +2,7 @@ import express, { Application } from "express";
 import cookieParser from "cookie-parser";
 import authRouter from "./routes/auth.routes";
 import messageRouter from "./routes/message.routes";
+import userRouter from "./routes/user.routes";
 import { EnvConfiguration } from "./config/envConfiguration";
 import "./lib/db";
 import { errorHandler, notFound } from "./middleware/error.middleware";
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/api/auth", authRouter);
+app.use("/api/users", userRouter);
 app.use("/api/messages", messageRouter);
 
 //error handling

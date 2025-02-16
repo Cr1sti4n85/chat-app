@@ -18,4 +18,8 @@ export class UserRepository implements IUserRepository {
   async findById(id: string): Promise<User | null> {
     return await UserModel.findById(id).select("-password");
   }
+
+  async findAll(id: string): Promise<User[]> {
+    return await UserModel.find({ _id: { $ne: id } }).select("-password");
+  }
 }

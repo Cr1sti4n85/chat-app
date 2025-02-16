@@ -12,9 +12,11 @@ export interface User extends Document {
 
 export interface IUserRepository extends Repository<User> {
   findOne(query: Query): Promise<User | null>;
+  findAll(id: string): Promise<User[]>;
 }
 
 export interface IUserService {
+  findAllUsers(id: string): Promise<User[]>;
   createUser(data: Partial<User>): Promise<User>;
   findOne(query: Query): Promise<User | null>;
   updateUser(id: string, data: Partial<User>): Promise<User | null>;
