@@ -10,6 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 import { useState } from "react";
+import AuthImagePattern from "../components/AuthImagePattern";
 
 function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -137,6 +138,12 @@ function SignupPage() {
           </div>
         </div>
       </div>
+      {/* right side */}
+
+      <AuthImagePattern
+        title="Join our community"
+        subtitle="Connect with friends, share moments, and stay in touch with your loved ones."
+      />
     </div>
   );
 }
