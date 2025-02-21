@@ -20,7 +20,7 @@ function SignupPage() {
     email: "",
     password: "",
   });
-  const { signup, isSigningUp } = useAuthStore();
+  const { signUp, isSigningUp } = useAuthStore();
 
   const validateForm = () => {
     if (!formData.fullName.trim()) return toast.error("Full name is required");
@@ -28,7 +28,7 @@ function SignupPage() {
     if (!/\S+@\S+\.\S+/.test(formData.email))
       return toast.error("Invalid email format");
     if (!formData.password.trim()) return toast.error("Password is required");
-    if (formData.password.length < 6)
+    if (formData.password.length < 8)
       return toast.error("Password must be at least 6 characters long");
     return true;
   };
@@ -36,7 +36,7 @@ function SignupPage() {
     e.preventDefault();
     const isSuccess = validateForm();
 
-    isSuccess && signup(formData);
+    isSuccess && signUp(formData);
   };
   return (
     <div className="min-h-screen grid lg:grid-cols-2">
@@ -84,7 +84,7 @@ function SignupPage() {
                   <Mail className="size-5 text-base-content/40" />
                 </div>
                 <input
-                  type="email"
+                  // type="email"
                   className={`input input-bordered w-full pl-10`}
                   placeholder="Enter your email"
                   value={formData.email}
