@@ -64,7 +64,6 @@ export const logout = (_req: Request, res: Response) => {
 export const updateProfile = asyncHandler(
   async (req: Request, res: Response) => {
     const { profilePic } = req.body;
-    console.log(req);
     const userId = req.currentUser._id as string;
 
     if (!profilePic) {
