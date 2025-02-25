@@ -1,10 +1,10 @@
+import ChatContainer from "../components/ChatContainer";
 import ChatPlaceholder from "../components/ChatPlaceholder";
 import Sidebar from "../components/Sidebar";
 import { useChatStore } from "../store/useChatStore";
 
 function HomePage() {
   const { selectedUser } = useChatStore();
-  console.log(selectedUser);
   return (
     <div className="h-screen bg-base-200">
       <div className="flex items-center justify-center pt-20 px-4">
@@ -12,7 +12,7 @@ function HomePage() {
           <div className="flex h-full rounded-lg overflow-hidden">
             <Sidebar />
 
-            {!selectedUser ? <ChatPlaceholder /> : <div>Chat</div>}
+            {!selectedUser ? <ChatPlaceholder /> : <ChatContainer />}
           </div>
         </div>
       </div>
