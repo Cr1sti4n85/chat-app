@@ -9,11 +9,43 @@ function MessageInput() {
   const fileInputRef = useRef(null);
   const { sendMessage } = useChatStore();
 
-  const handleImageChange = (e) => {};
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please select an image file");
+      return;
+    }
 
-  const removeImage = () => {};
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+    };
 
-  const handleSendMessage = async (e) => {};
+    reader.readAsDataURL(file);
+  };
+
+  const removeImage = async () => {
+    setImagePreview(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const handleSendMessage = async (e) => {
+    e.preventDefault();
+    if (!text.trim() && !imagePreview) return;
+    try {
+      await sendMessage({
+        text: text.trim(),
+        image: imagePreview,
+      });
+
+      //clear form
+      setText("");
+      setImagePreview(null);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    } catch (error) {
+      toast.error("Failed to send message: ", error.mesage);
+    }
+  };
 
   return (
     <div className="p-4 w-full">
