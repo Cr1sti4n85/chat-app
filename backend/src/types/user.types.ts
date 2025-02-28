@@ -22,3 +22,7 @@ export interface IUserService {
   updateUser(id: string, data: Partial<User>): Promise<User | null>;
   findUserById(id: string): Promise<User | null>;
 }
+
+export type UserSocketMap = {
+  [userId: string]: string;
+};
