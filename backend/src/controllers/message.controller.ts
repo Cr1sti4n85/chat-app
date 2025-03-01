@@ -9,6 +9,7 @@ import {
 import asyncHandler from "../lib/asyncHandler";
 import { UploadApiResponse } from "cloudinary";
 import { uploadImage } from "lib/uploadImage";
+import { getReceiverSocketId, io } from "lib/socket";
 
 const messageRepository: IMessageRepository = new MessageRepository();
 const messageService: IMessageService = new MessageService(messageRepository);
@@ -40,7 +41,15 @@ export const sendMessage = asyncHandler(async (req: Request, res: Response) => {
     image: imageUrl,
   });
 
-  //TODO: add websockets
+  const receiverSocketId = getReceiverSocketId(receiverId);
+  if (receiverSocketId) {
+    io.to(receiverId).emit("newMessage", {
+      senderId,
+      receiverId,
+      text,
+      imageUrl,
+    });
+  }
 
   res.status(201).json({ senderId, receiverId, text, imageUrl });
 });
