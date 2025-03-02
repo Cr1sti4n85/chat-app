@@ -34,7 +34,7 @@ export const sendMessage = asyncHandler(async (req: Request, res: Response) => {
     imageUrl = uploadResponse.secure_url;
   }
 
-  await messageService.createMessage({
+  const ms = await messageService.createMessage({
     senderId,
     receiverId,
     text,
@@ -43,13 +43,8 @@ export const sendMessage = asyncHandler(async (req: Request, res: Response) => {
 
   const receiverSocketId = getReceiverSocketId(receiverId);
   if (receiverSocketId) {
-    io.to(receiverId).emit("newMessage", {
-      senderId,
-      receiverId,
-      text,
-      imageUrl,
-    });
+    io.to(receiverSocketId).emit("newMessage", ms);
   }
 
-  res.status(201).json({ senderId, receiverId, text, imageUrl });
+  res.status(201).json(ms);
 });
