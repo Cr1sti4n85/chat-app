@@ -1,4 +1,4 @@
-import { EnvConfiguration } from "config/envConfiguration";
+import { EnvConfiguration } from "../config/envConfiguration";
 import mongoose from "mongoose";
 
 const mongoUri = EnvConfiguration().mongoUri as string;

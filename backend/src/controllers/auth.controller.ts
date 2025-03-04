@@ -2,10 +2,10 @@ import { Request, Response } from "express";
 import { UserRepository } from "../repositories/user.repository";
 import { UserService } from "../services/user.service";
 import { IUserRepository, IUserService } from "../types/user.types";
-import { generateToken } from "lib/generateToken";
+import { generateToken } from "../lib/generateToken";
 import asyncHandler from "../lib/asyncHandler";
 import { UploadApiResponse } from "cloudinary";
-import { uploadImage } from "lib/uploadImage";
+import { uploadImage } from "../lib/uploadImage";
 
 const userRepository: IUserRepository = new UserRepository();
 const userService: IUserService = new UserService(userRepository);

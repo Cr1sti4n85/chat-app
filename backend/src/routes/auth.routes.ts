@@ -4,9 +4,9 @@ import {
   logout,
   signup,
   updateProfile,
-} from "controllers/auth.controller";
+} from "../controllers/auth.controller";
 import { Router } from "express";
-import { protect } from "middleware/auth.middleware";
+import { protect } from "../middleware/auth.middleware";
 
 const router = Router();
 

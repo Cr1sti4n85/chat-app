@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx watch ./src/app.ts"
+    "build": "npm install && tsc && npm install --prefix frontend && npm run build --prefix frontend",
+    "start": "node ./backend/dist/app.js",
+    "dev": "tsx watch ./backend/src/app.ts"
   },
   "keywords": [],
   "author": "",

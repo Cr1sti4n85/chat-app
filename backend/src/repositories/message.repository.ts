@@ -1,4 +1,3 @@
-import { Query } from "types/repository.types";
 import MessageModel from "../models/message.model";
 import { IMessageRepository, Message } from "../types/message.types";
 

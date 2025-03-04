@@ -8,8 +8,8 @@ import {
 } from "../types/message.types";
 import asyncHandler from "../lib/asyncHandler";
 import { UploadApiResponse } from "cloudinary";
-import { uploadImage } from "lib/uploadImage";
-import { getReceiverSocketId, io } from "lib/socket";
+import { uploadImage } from "../lib/uploadImage";
+import { getReceiverSocketId, io } from "../lib/socket";
 
 const messageRepository: IMessageRepository = new MessageRepository();
 const messageService: IMessageService = new MessageService(messageRepository);

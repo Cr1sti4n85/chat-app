@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import { app, server } from "./lib/socket";
@@ -8,6 +8,7 @@ import userRouter from "./routes/user.routes";
 import { EnvConfiguration } from "./config/envConfiguration";
 import "./lib/db";
 import { errorHandler, notFound } from "./middleware/error.middleware";
+import path from "path";
 
 // const app: Application = express();
 const port = EnvConfiguration().port;
@@ -25,6 +26,20 @@ app.use(
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
 app.use("/api/messages", messageRouter);
+
+if (EnvConfiguration().nodeEnv === "production") {
+  app.use(express.static(path.join(__dirname, "../../frontend/dist")));
+
+  app.get("*", (_req: Request, res: Response) =>
+    res.sendFile(
+      path.resolve(__dirname, "../../", "frontend", "dist", "index.html")
+    )
+  );
+} else {
+  app.get("/", (_req: Request, res: Response) => {
+    res.send("API is running..");
+  });
+}
 
 //error handling
 app.use(notFound);
